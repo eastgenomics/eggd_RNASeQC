@@ -6,7 +6,7 @@ main() {
     # Download all inputs in parallel
     dx-download-all-inputs
     #Move all file paths to current directory
-	find ~/in -type f -name "*" -print0 | xargs -0 -I {} mv {} ./
+    find ~/in -type f -name "*" -print0 | xargs -0 -I {} mv {} ./
 
     # Load docker image
     docker=${docker_path##*/}
@@ -18,8 +18,8 @@ main() {
     echo "-------------- Running RNASeQC -----------------"
     mkdir -p out/rnaseqc_out
     gtf=${gtf_path##*/}
-	bam=${bam_path##*/}
-	bed=${bed_path##*/}
+    bam=${bam_path##*/}
+    bed=${bed_path##*/}
     # Run RNASeQ command depending on whether coverage is set
     if [ "$coverage" == 'true' ]; then
         docker run  -v /home/dnanexus/:/data ${IMAGE_ID} /bin/bash -c \
