@@ -2,7 +2,7 @@
 
 ## What does this app do?
 
-RNA-SeQC (RNA-SeQC 2: efficient RNA-seq quality control and quantification for large cohorts[https://academic.oup.com/bioinformatics/article/37/18/3048/6156810?login=false])  is a powerful tool that generated over 70 metrics. It quantifies gene- and exon-level expression, enabling effective quality control of RNA datasets
+RNA-SeQC ([RNA-SeQC 2: efficient RNA-seq quality control and quantification for large cohorts](https://academic.oup.com/bioinformatics/article/37/18/3048/6156810?login=false))  is a powerful tool that generated over 70 metrics. It quantifies gene- and exon-level expression, enabling effective quality control of RNA datasets
 
 ## What inputs are required for this app to run?
 
