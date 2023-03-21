@@ -21,14 +21,14 @@ main() {
     bam=${bam_path##*/}
     bed=${bed_path##*/}
     # Run RNASeQ command depending on whether coverage is set
+    docker_cmd="docker run  -v /home/dnanexus/:/data ${IMAGE_ID} /bin/bash -c \
+        'cd /data ; rnaseqc $gtf $bam --bed $bed out/rnaseqc_out'"
     if [ "$coverage" == 'true' ]; then
-        docker run  -v /home/dnanexus/:/data ${IMAGE_ID} /bin/bash -c \
-        "cd /data ; rnaseqc $gtf $bam --bed $bed --coverage out/rnaseqc_out"
-    else
-        docker run  -v /home/dnanexus/:/data ${IMAGE_ID} /bin/bash -c \
-        "cd /data ; rnaseqc $gtf $bam --bed $bed out/rnaseqc_out"
+        docker_cmd+=" --coverage"
     fi
-
+    echo $docker_cmd
+    eval $docker_cmd
+    
     echo "--------------Outputting files -----------------"
 
     dx-upload-all-outputs
