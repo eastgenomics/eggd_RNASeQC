@@ -1,0 +1,83 @@
+{
+  "name": "eggd_RNASeQC",
+  "title": "eggd_RNASeQC",
+  "summary": "eggd_RNASeQC",
+  "dxapi": "1.0.0",
+  "version": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "bam",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": "RNA bam file"
+    },
+    {
+      "name": "gtf",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.gtf"
+      ],
+      "help": "GTF file containing features to check the bam against. This file should be collapsed so there are no overlapping transcripts on the same strand and that each gene have a single transcript whose id matches the parent gene id."
+    },
+    {
+      "name": "bed",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bed"
+      ],
+      "help": "bed file containing chromosome, start and end"
+    },
+    {
+      "name": "coverage",
+      "class": "boolean",
+      "default": false,
+      "optional": true,
+      "help": "boolean for whether coverage metrics should be calculated or not"
+    },
+    {
+      "name": "docker",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": "RNA-SeQC docker tar file"
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "rnaseqc_out",
+      "class": "array:file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 4
+      }
+    },
+    "interpreter": "bash",
+    "file": "src/eggd_RNASeQC.sh",
+    "distribution": "Ubuntu",
+    "release": "20.04",
+    "version": "0"
+  },
+  "regionalOptions": {
+    "aws:eu-central-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_v2_x4"
+        }
+      }
+    }
+  }
+}
