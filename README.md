@@ -8,7 +8,7 @@ RNA-SeQC ([RNA-SeQC 2: efficient RNA-seq quality control and quantification for 
 
 - ```bam``` - bam file
 - ```gtf``` - GTF file containing features to check the bam against. This file should be collapsed so there there are no overlapping transcripts on the same strand and that each gene have a single transcript whose id matches the parent gene id.
-- ```bed``` - bed file containg chromosome, start and end
+- ```bed``` - bed file containing chromosome, start and end
 - ```coverage``` - boolean for whether coverage metrics should be calculated or not
 - ```docker``` - Docker input that contains the RNA-SeQC tool
 
