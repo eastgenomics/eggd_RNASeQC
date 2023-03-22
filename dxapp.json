@@ -47,6 +47,15 @@
         "*.tar.gz"
       ],
       "help": "RNA-SeQC docker tar file"
+    },
+    {
+      "name": "hgnc",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.txt"
+      ],
+      "help": "HGNC complete static file, tab-separated"
     }
   ],
   "outputSpec": [
