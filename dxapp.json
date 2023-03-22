@@ -10,7 +10,7 @@
       "class": "file",
       "optional": false,
       "patterns": [
-        "*"
+        "*.bam"
       ],
       "help": "RNA bam file"
     },
