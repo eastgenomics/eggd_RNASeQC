@@ -30,6 +30,14 @@ main() {
 
     eval $docker_cmd
 
+    if [ "$coverage" == 'true' ]; then
+        hgnc_file=${hgnc_path##*/}
+        cd out/rnaseqc_out
+        coverage_path=$(find . -type f -name "*.coverage.tsv")
+        coverage_file=${file#./}
+        python3 ../../hgnc_annotation.py -c $coverage_file -hgnc ../../$hgnc_file
+    fi
+
     echo "--------------Outputting files -----------------"
 
     dx-upload-all-outputs
