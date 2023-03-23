@@ -8,6 +8,9 @@ main() {
     #Move all file paths to current directory
     find ~/in -type f -name "*" -print0 | xargs -0 -I {} mv {} ./
 
+    # Install packages from the python asset
+    pip3 install /pytz-*.whl /numpy-*.whl /pandas-*.whl
+
     # Load docker image
     docker=${docker_path##*/}
     docker load -i "${docker}"
