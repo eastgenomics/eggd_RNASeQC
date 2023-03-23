@@ -37,7 +37,7 @@ main() {
         hgnc_file=${hgnc_path##*/}
         cd out/rnaseqc_out
         coverage_path=$(find . -type f -name "*.coverage.tsv")
-        coverage_file=${file#./}
+        coverage_file=${coverage_path#./}
         python3 ../../hgnc_annotation.py -c $coverage_file -hgnc ../../$hgnc_file
     fi
 
