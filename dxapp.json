@@ -55,7 +55,7 @@
       "patterns": [
         "*.txt"
       ],
-      "help": "HGNC complete static file, tab-separated"
+      "help": "HGNC complete static file, tab-separated, originally from https://www.genenames.org/download/archive/"
     }
   ],
   "outputSpec": [
