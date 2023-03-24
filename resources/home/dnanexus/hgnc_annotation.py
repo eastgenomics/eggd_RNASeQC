@@ -35,7 +35,7 @@ def main():
     # load coverage data
     dat = pd.read_csv(args.cov_metrics_file, sep = "\t")
     # remove ensembl gene versions
-    dat['gene_id'] = dat['gene_id'].str.split('.').str[0]
+    dat['ENSG_id_versionless'] = dat['gene_id'].str.split('.').str[0]
 
     # load hgnc file
     hgnc_df = pd.read_csv(args.hgnc_file, sep = "\t",dtype='unicode')
@@ -43,16 +43,18 @@ def main():
     ensembl_hgncid = dict(zip(hgnc_df.ensembl_gene_id, hgnc_df.hgnc_id))
     ensembl_hgncsymbol = dict(zip(hgnc_df.ensembl_gene_id, hgnc_df.symbol))
 
-    # if ensembl gene ids match, copy over hgnc id and symbol to dat
-    dat['hgnc_symbol'] = dat['gene_id'].apply(
+    # if ensembl gene ids match, copy over hgnc id and symbol to dat dataframe
+    # the match is not based on version but just the ENSG name
+    dat['hgnc_symbol'] = dat['ENSG_id_versionless'].apply(
                                     lambda x: ensembl_hgncsymbol.get(str(x))
                                    )
-    dat['hgnc_id'] = dat['gene_id'].apply(
+    dat['hgnc_id'] = dat['ENSG_id_versionless'].apply(
                                         lambda x: ensembl_hgncid.get(str(x))
                                     )
     # reorder columns
-    dat = dat[['hgnc_symbol', 'hgnc_id', 'gene_id', 'coverage_mean',
-                'coverage_std', 'coverage_CV']]
+    dat = dat[['hgnc_symbol', 'hgnc_id', 'ENSG_id_versionless', 'gene_id',
+                'coverage_mean', 'coverage_std', 'coverage_CV']]
+    dat.rename(columns = {'gene_id':'ENSG_id'}, inplace = True)
 
     # output string name
     output_filename = args.cov_metrics_file.replace('.tsv','.hgnc.tsv')
