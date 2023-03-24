@@ -3,10 +3,10 @@ import argparse
 
 
 def parse_args():
-    """Parse through arguements
+    """Parse through arguments
     Returns:
-        args: Variable that you can extract relevant
-        arguements inputs needed
+        args: Variable that you can extract relevant arguments from
+        command line to set off.
     """
     # Read in arguments
     parser = argparse.ArgumentParser()
