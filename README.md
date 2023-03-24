@@ -31,6 +31,7 @@ Without the coverage the outputs are:
 
 With coverage, an additional file are outputted:
 - ```{samplename}.coverage.tsv```
+- ```{samplename}.coverage.hgnc.tsv```
 
 
 ## This app was made by East GLH

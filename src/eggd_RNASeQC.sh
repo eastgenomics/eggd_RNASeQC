@@ -8,6 +8,9 @@ main() {
     #Move all file paths to current directory
     find ~/in -type f -name "*" -print0 | xargs -0 -I {} mv {} ./
 
+    # Install packages from the python asset
+    pip3 install /pytz-*.whl /numpy-*.whl /pandas-*.whl
+
     # Load docker image
     docker=${docker_path##*/}
     docker load -i "${docker}"
@@ -29,6 +32,14 @@ main() {
     docker_cmd+=" out/rnaseqc_out'"
 
     eval $docker_cmd
+
+    if [ "$coverage" == 'true' ]; then
+        hgnc_file=${hgnc_path##*/}
+        cd out/rnaseqc_out
+        coverage_path=$(find . -type f -name "*.coverage.tsv")
+        coverage_file=${coverage_path#./}
+        python3 ../../hgnc_annotation.py -c $coverage_file -hgnc ../../$hgnc_file
+    fi
 
     echo "--------------Outputting files -----------------"
 
