@@ -1,9 +1,15 @@
 {
   "name": "eggd_RNASeQC",
   "title": "eggd_RNASeQC",
-  "summary": "eggd_RNASeQC",
+  "summary": "Calculates QC metrics for RNA BAM files",
   "dxapi": "1.0.0",
   "version": "1.0.0",
+  "authorizedUsers": [
+    "org-emee_1"
+  ],
+  "developers":[
+    "org-emee_1"
+  ],
   "inputSpec": [
     {
       "name": "bam",
