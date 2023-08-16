@@ -21,15 +21,6 @@
       "help": "RNA bam file"
     },
     {
-      "name": "gtf",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*.gtf"
-      ],
-      "help": "GTF file containing features to check the bam against. This file should be collapsed so there are no overlapping transcripts on the same strand and that each gene have a single transcript whose id matches the parent gene id."
-    },
-    {
       "name": "bed",
       "class": "file",
       "optional": false,
