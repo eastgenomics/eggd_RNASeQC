@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# https://github.com/broadinstitute/gtex-pipeline/blob/master/gene_model/collapse_annotation.py
 # Author: Francois Aguet
 import numpy as np
 import pandas as pd
