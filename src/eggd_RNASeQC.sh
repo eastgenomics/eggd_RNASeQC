@@ -11,6 +11,10 @@ main() {
     # Install packages from the python asset
     pip3 install /pytz-*.whl /numpy-*.whl /pandas-*.whl
 
+    # Install packages in the app
+    export PATH=$PATH:/home/dnanexus/.local/bin  # pip installs some packages here, add to path
+    sudo -H python3 -m pip install --no-index --no-deps packages/*
+
     # Load docker image
     docker=${docker_path##*/}
     docker load -i "${docker}"
@@ -19,11 +23,11 @@ main() {
     IMAGE_ID=$(sudo docker images --format="{{.Repository}} {{.ID}}" | grep "^gcr" | cut -d' ' -f2)
 
     echo "---------- Decompress CTAT bundle -------------"
-    tar zxvf $CTAT_bundle_path
-    lib_dir=$(echo $CTAT_bundle_name | cut -d "." -f 1)
+    tar zxvf ${CTAT_bundle_path##*/}
+    lib_dir=$(echo $CTAT_bundle_name |  cut -d "." -f 1,2)
 
     echo "------------- Collapse gtf file ----------------"
-    ref_annot_gtf="/home/dnanexus/genome_lib/${lib_dir}/ctat_genome_lib_build_dir/ref_annot.gtf"
+    ref_annot_gtf="/home/dnanexus/${lib_dir}/ctat_genome_lib_build_dir/ref_annot.gtf"
     python3 collapse_annotation.py $ref_annot_gtf ref_annot_collapse.gtf
 
     echo "-------------- Running RNASeQC -----------------"
