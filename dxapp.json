@@ -32,7 +32,7 @@
     {
       "name": "coverage",
       "class": "boolean",
-      "default": false,
+      "default": true,
       "optional": true,
       "help": "boolean for whether coverage metrics should be calculated or not"
     },
