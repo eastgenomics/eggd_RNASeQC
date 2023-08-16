@@ -62,6 +62,15 @@
         "*.txt"
       ],
       "help": "HGNC complete static file, tab-separated, originally from https://www.genenames.org/download/archive/"
+    },
+    {
+      "name": "CTAT_bundle",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.tar.gz"
+      ],
+      "help": "CTAT bundle"
     }
   ],
   "outputSpec": [
