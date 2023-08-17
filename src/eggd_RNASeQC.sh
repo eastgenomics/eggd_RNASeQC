@@ -49,7 +49,7 @@ main() {
         cd out/rnaseqc_out
         coverage_path=$(find . -type f -name "*.coverage.tsv")
         coverage_file=${coverage_path#./}
-        python3 ../../hgnc_annotation.py -c $coverage_file -hgnc ../../$hgnc_file
+        python3 ../../hgnc_annotation.py -c $coverage_file -g $ref_annot_gtf
     fi
 
     echo "--------------Outputting files -----------------"
