@@ -46,15 +46,6 @@
       "help": "RNA-SeQC docker tar file"
     },
     {
-      "name": "hgnc",
-      "class": "file",
-      "optional": false,
-      "patterns": [
-        "*.txt"
-      ],
-      "help": "HGNC complete static file, tab-separated, originally from https://www.genenames.org/download/archive/"
-    },
-    {
       "name": "CTAT_bundle",
       "class": "file",
       "optional": false,
