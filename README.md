@@ -15,7 +15,7 @@ RNA-SeQC ([RNA-SeQC 2: efficient RNA-seq quality control and quantification for 
 
 ## How does this app work?
 
-The app inputs the bam, gtf and bed file and calculates QC metrics using RNA-SeQC.
+The app inputs the bam, CTAT bundle and bed file. The CTAT bundle is unpacked and the ref_annot.gtf is collapsed format (combining all isoforms of a gene into a single transcript) so RNA-SeQC is able to calculate the QC metrics.
 
 ## What does this app output?
 
