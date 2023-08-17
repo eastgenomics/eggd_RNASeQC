@@ -8,9 +8,9 @@ RNA-SeQC ([RNA-SeQC 2: efficient RNA-seq quality control and quantification for 
 
 - ```bam``` - bam file
 - ```CTAT bundle``` - A CTAT genome library, which contains the ref_annot.gtf file needed to annotate the genes and transcripts for coverage metrics.
-- ```bed``` - bed file containing chromosome, start and end
-- ```coverage``` - boolean for whether coverage metrics should be calculated or not
-- ```docker``` - Docker input that contains the RNA-SeQC tool
+- ```bed``` - bed file containing chromosome, start and end.
+- ```docker``` - docker input that contains the RNA-SeQC tool.
+- ```coverage``` - boolean for whether coverage metrics should be calculated or not. Default is true.
 
 
 ## How does this app work?
