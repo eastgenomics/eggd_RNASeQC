@@ -27,7 +27,7 @@
       "patterns": [
         "*.bed"
       ],
-      "help": "bed file containing chromosome, start and end"
+      "help": "bed file with 6 columns; chrom, start and end, name, score and strand"
     },
     {
       "name": "coverage",
