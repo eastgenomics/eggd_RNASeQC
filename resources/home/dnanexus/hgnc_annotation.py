@@ -63,6 +63,9 @@ def main():
     ref_flat2 = ref_flat2.iloc[:, [5,7,9]]
     ref_flat2.columns =['gene_id', 'hgnc_symbol', 'hgnc_id']
 
+    # the elements in these columns have a header "gene_id" for example
+    # in it and we dont want these so we will scrap it and also remove
+    # the qoutes around the element
     ref_flat2['gene_id'] = ref_flat2['gene_id'].str.split('gene_id').str[1]
     ref_flat2['gene_id'] = ref_flat2['gene_id'].str.replace(r'"', '', regex=True)
     ref_flat2['hgnc_symbol'] = ref_flat2['hgnc_symbol'].str.split('gene_name').str[1]
