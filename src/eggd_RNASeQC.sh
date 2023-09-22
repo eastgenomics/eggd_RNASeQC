@@ -62,6 +62,33 @@ main() {
     fi
 
     echo "--------------Outputting files -----------------"
+    mkdir -p /home/dnanexus/out/exon_csv/
+    mkdir -p /home/dnanexus/out/exon_reads/
+    mkdir -p /home/dnanexus/out/fragmentSizes/
+    mkdir -p /home/dnanexus/out/gene_fragments/
+    mkdir -p /home/dnanexus/out/gene_reads/
+    mkdir -p /home/dnanexus/out/gene_tpm/
+    mkdir -p /home/dnanexus/out/metrics/
+
+    mv *exon_csv.tsv /home/dnanexus/out/exon_csv/
+    mv *exon_reads.gct /home/dnanexus/out/exon_reads/
+    mv *fragmentSizes.txt /home/dnanexus/out/fragmentSizes/
+    mv *gene_fragments.gct /home/dnanexus/out/gene_fragments/
+    mv *gene_reads.gct /home/dnanexus/out/gene_reads/
+    mv *gene_tpm.gct /home/dnanexus/out/gene_tpm/
+    mv *metrics.tsv /home/dnanexus/out/metrics/
+
+    # If coverage metrics is made, then it needs to be outputted as well
+    if [ -f *coverage.tsv ]; then
+        echo "coverage.tsv exists."
+        mkdir -p /home/dnanexus/out/coverage/
+        mkdir -p /home/dnanexus/out/coverage_hgnc/
+
+        mv *coverage.tsv /home/dnanexus/out/groups_tsv/
+        mv *coverage.hgnc.tsv /home/dnanexus/out/coverage_hgnc/
+    else
+        echo "No coverage reports generated as coverage option was not selected"
+    fi
 
     dx-upload-all-outputs
 

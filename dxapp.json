@@ -57,8 +57,69 @@
   ],
   "outputSpec": [
     {
-      "name": "rnaseqc_out",
-      "class": "array:file",
+      "name": "exon_csv",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "exon_reads",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },{
+      "name": "fragmentSizes",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "gene_fragments",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },{
+      "name": "gene_reads",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "gene_tpm",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },{
+      "name": "metrics",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "coverage",
+      "class": "file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "coverage_hgnc",
+      "class": "file",
       "patterns": [
         "*"
       ],
