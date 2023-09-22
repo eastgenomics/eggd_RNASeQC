@@ -44,12 +44,22 @@ def main():
                                     'frame','attribute'
                             ]
                         )
+    # select the needed columns to save space
     ref_flat = ref_flat[['chr', 'source', 'feature', 'start','end', 'attribute']]
     ref_flat = ref_flat[ref_flat['feature'] == "gene"]
-
+    # the attributes columns has a lot of information about the transcript,
+    # split these by semi colon seperators
     ref_flat2 = pd.concat(
         [ref_flat, ref_flat['attribute'].str.split('; ', expand=True)],axis=1
         ).drop('attribute', axis=1)
+    # attributes has no titles, but we are intersted in columns 5,7,9 which
+    # is the gene ID, hgnc symbol and hgnc ID
+    # +---------------------------------------------------------+----------------------------------------------------------------+
+    # |  chr | source | feature | start | end | 0 | ...  | 3 | 4 | 5 | 6 | 7 | 8 |
+    # +=======================================================================+=======================================================================================+
+    # | chr1 | HAVANA | gene | 11869 | 14409 | gene_id "ENSG00000223972.5" | ... | level 2 | hgnc_id "HGNC:37102" | havana_gene "OTTHUMG00000000961.2" | None | None | None |
+    # +--------------------------------------------------------+-----------------------------------------------------------------+
+
     ref_flat2 = ref_flat2.iloc[:, [5,7,9]]
     ref_flat2.columns =['gene_id', 'hgnc_symbol', 'hgnc_id']
 
