@@ -50,15 +50,15 @@ main() {
     if [ "$coverage" == 'true' ]; then
         docker_cmd+=" --coverage"
     fi
-    docker_cmd+=" out/rnaseqc_out'"
+    docker_cmd+=" out'"
 
     eval $docker_cmd
 
     if [ "$coverage" == 'true' ]; then
-        cd out/rnaseqc_out
+        cd out
         coverage_path=$(find . -type f -name "*.coverage.tsv")
         coverage_file=${coverage_path#./}
-        python3 ../../hgnc_annotation.py -c $coverage_file -g $ref_annot_gtf
+        python3 ../../../hgnc_annotation.py -c $coverage_file -g $ref_annot_gtf
     fi
 
     echo "--------------Outputting files -----------------"
@@ -69,6 +69,8 @@ main() {
     mkdir -p /home/dnanexus/out/gene_reads/
     mkdir -p /home/dnanexus/out/gene_tpm/
     mkdir -p /home/dnanexus/out/metrics/
+
+    cd /home/dnanexus/out/
 
     mv *exon_csv.tsv /home/dnanexus/out/exon_csv/
     mv *exon_reads.gct /home/dnanexus/out/exon_reads/
@@ -84,7 +86,7 @@ main() {
         mkdir -p /home/dnanexus/out/coverage/
         mkdir -p /home/dnanexus/out/coverage_hgnc/
 
-        mv *coverage.tsv /home/dnanexus/out/groups_tsv/
+        mv *coverage.tsv /home/dnanexus/out/coverage/
         mv *coverage.hgnc.tsv /home/dnanexus/out/coverage_hgnc/
     else
         echo "No coverage reports generated as coverage option was not selected"

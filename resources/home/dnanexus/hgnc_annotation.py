@@ -80,7 +80,7 @@ def main():
 
     dat_merged.rename(
     columns = {
-        'gene_id':'ENSG_id'
+        'gene_id':'ENSG_ID'
     }, inplace = True
 )
 
