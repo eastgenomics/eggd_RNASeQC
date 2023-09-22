@@ -61,36 +61,29 @@ def main():
     # +--------------------------------------------------------+-----------------------------------------------------------------+
 
     ref_flat2 = ref_flat2.iloc[:, [5,7,9]]
-    ref_flat2.columns =['gene_id', 'hgnc_symbol', 'hgnc_id']
+    ref_flat2.columns =['ENSG_ID', 'hgnc_symbol', 'HGNC_ID']
 
     # the elements in these columns have a header "gene_id" for example
     # in it and we dont want these so we will scrap it and also remove
     # the qoutes around the element
-    ref_flat2['gene_id'] = ref_flat2['gene_id'].str.split('gene_id').str[1]
-    ref_flat2['gene_id'] = ref_flat2['gene_id'].str.replace(r'"', '', regex=True)
+    ref_flat2['ENSG_ID'] = ref_flat2['ENSG_ID'].str.split('gene_id').str[1]
+    ref_flat2['ENSG_ID'] = ref_flat2['ENSG_ID'].str.replace(r'"', '', regex=True)
     ref_flat2['hgnc_symbol'] = ref_flat2['hgnc_symbol'].str.split('gene_name').str[1]
     ref_flat2['hgnc_symbol'] = ref_flat2['hgnc_symbol'].str.replace(r'"', '', regex=True)
-    ref_flat2['hgnc_id'] = ref_flat2['hgnc_id'].str.split('hgnc_id').str[1]
-    ref_flat2['hgnc_id'] = ref_flat2['hgnc_id'].str.replace(r'"', '', regex=True)
-    ref_flat2['hgnc_id'] = ref_flat2['hgnc_id'].str.replace(r';', '', regex=True)
+    ref_flat2['HGNC_ID'] = ref_flat2['HGNC_ID'].str.split('hgnc_id').str[1]
+    ref_flat2['HGNC_ID'] = ref_flat2['HGNC_ID'].str.replace(r'"', '', regex=True)
+    ref_flat2['HGNC_ID'] = ref_flat2['HGNC_ID'].str.replace(r';', '', regex=True)
 
     #remove ws
-    ref_flat2['gene_id'] = ref_flat2['gene_id'].str.strip()
+    ref_flat2['ENSG_ID'] = ref_flat2['ENSG_ID'].str.strip()
     ref_flat2['hgnc_symbol'] = ref_flat2['hgnc_symbol'].str.strip()
-    ref_flat2['hgnc_id'] = ref_flat2['hgnc_id'].str.strip()
-    # merge on gene_id
-    dat_merged = dat.merge(ref_flat2, on = 'gene_id')
+    ref_flat2['HGNC_ID'] = ref_flat2['HGNC_ID'].str.strip()
+    # merge on ENSG_ID
+    dat_merged = dat.merge(ref_flat2, on = 'ENSG_ID')
 
     # reorder columns
-    dat_merged = dat_merged[['hgnc_symbol', 'hgnc_id','gene_id',
+    dat_merged = dat_merged[['hgnc_symbol', 'HGNC_ID','ENSG_ID',
                 'coverage_mean', 'coverage_std', 'coverage_CV']]
-    dat_merged.rename(
-        columns = {
-            'gene_id':'ENSG_id',
-            'hgnc_symbol':'HGNC_symbol',
-            'hgnc_id':'HGNC_id'
-        }, inplace = True
-    )
 
     # output string name
     output_filename = args.cov_metrics_file.replace('.tsv','.hgnc.tsv')
