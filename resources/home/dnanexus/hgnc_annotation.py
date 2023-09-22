@@ -36,14 +36,20 @@ def main():
     dat = pd.read_csv(args.cov_metrics_file, sep = "\t")
 
     # load hgnc file
-    ref_flat = pd.read_csv(args.gtf_file, sep = "\t", skiprows = 5,
-                            names=['chr', 'source', 'feature', 'start','end', 'score', 'strand', 'frame','attribute'], header=None)
+    ref_flat = pd.read_csv(args.gtf_file,
+                            sep = "\t", skiprows = 5,
+                            header=None,
+                            names = ['chr', 'source', 'feature',
+                                    'start','end', 'score', 'strand',
+                                    'frame','attribute'
+                            ]
+                        )
     ref_flat = ref_flat[['chr', 'source', 'feature', 'start','end', 'attribute']]
     ref_flat = ref_flat[ref_flat['feature'] == "gene"]
 
-    ref_flat2 = pd.concat([ref_flat, ref_flat['attribute'].str.split('; ', expand=True)], axis=1).drop(
-        'attribute', axis=1
-    )
+    ref_flat2 = pd.concat(
+        [ref_flat, ref_flat['attribute'].str.split('; ', expand=True)],axis=1
+        ).drop('attribute', axis=1)
     ref_flat2 = ref_flat2.iloc[:, [5,7,9]]
     ref_flat2.columns =['gene_id', 'hgnc_symbol', 'hgnc_id']
 
@@ -65,7 +71,13 @@ def main():
     # reorder columns
     dat_merged = dat_merged[['hgnc_symbol', 'hgnc_id','gene_id',
                 'coverage_mean', 'coverage_std', 'coverage_CV']]
-    dat_merged.rename(columns = {'gene_id':'ENSG_id','hgnc_symbol':'HGNC_symbol', 'hgnc_id':'HGNC_id'}, inplace = True)
+    dat_merged.rename(
+        columns = {
+            'gene_id':'ENSG_id',
+            'hgnc_symbol':'HGNC_symbol',
+            'hgnc_id':'HGNC_id'
+        }, inplace = True
+    )
 
     # output string name
     output_filename = args.cov_metrics_file.replace('.tsv','.hgnc.tsv')
