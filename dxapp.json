@@ -115,7 +115,8 @@
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "",
+      "optional": true
     },
     {
       "name": "coverage_hgnc",
@@ -123,7 +124,8 @@
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "",
+      "optional": true
     }
   ],
   "runSpec": {
