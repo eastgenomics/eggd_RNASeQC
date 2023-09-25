@@ -21,17 +21,17 @@ The app inputs the bam, CTAT bundle and bed file. The CTAT bundle is unpacked an
 
 Without the coverage the outputs are:
 
-- ```{samplename}.exon_cv.tsv```
-- ```{samplename}.exon_reads.gct```
-- ```{samplename}.fragmentSizes.txt```
-- ```{samplename}.gene_fragments.gct```
-- ```{samplename}.gene_reads.gct```
-- ```{samplename}.gene_tpm.gct```
-- ```{samplename}.metrics.tsv```
+- ```{sample}.metrics.tsv``` : A tab-delimited list of (Statistic, Value) pairs of all statistics and metrics recorded.
+- ```{sample}.exon_reads.gct``` : A tab-delimited GCT file with (Exon ID, Gene Name, coverage) tuples for all exons which had at least part of one read mapped.
+- ```{sample}.gene_reads.gct``` : A tab-delimited GCT file with (Gene ID, Gene Name, coverage) tuples for all genes which had at least one read map to at least one of its exons. This file contains the gene-level read counts used, e.g., for differential expression analyses.
+- ```{sample}.gene_tpm.gct``` : A tab-delimited GCT file with (Gene ID, Gene Name, TPM) tuples for all genes reported in the gene_reads.gct file, with expression values in transcript per million (TPM) units.
+- ```{sample}.fragmentSizes.txt``` : A list of fragment sizes recorded.
+- ```{sample}.gene_fragments.gct``` : Number of fragment sizes per gene.
+
 
 With coverage, an additional file are outputted:
-- ```{samplename}.coverage.tsv```
-- ```{samplename}.coverage.hgnc.tsv```
+- ```{sample}.coverage.tsv``` : A tab-delimited list of (Gene ID, Transcript ID, Mean Coverage, Coverage Std, Coverage CV) tuples for all transcripts encountered in the GTF.
+- ```{samplename}.coverage.hgnc.tsv``` : Annotated coverage tsv file using ref_annot.gtf from the CTAT bundle.
 
 
 ## This app was made by East GLH

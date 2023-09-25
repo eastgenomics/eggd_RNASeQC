@@ -70,14 +70,14 @@
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "A tab-delimited GCT file with (Exon ID, Gene Name, coverage) tuples for all exons which had at least part of one read mapped."
     },{
       "name": "fragmentSizes",
       "class": "file",
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "A list of fragment sizes recorded."
     },
     {
       "name": "gene_fragments",
@@ -85,14 +85,14 @@
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "Number of fragment sizes per gene."
     },{
       "name": "gene_reads",
       "class": "file",
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "A tab-delimited GCT file with (Gene ID, Gene Name, coverage) tuples for all genes which had at least one read map to at least one of its exons. This file contains the gene-level read counts used, e.g., for differential expression analyses."
     },
     {
       "name": "gene_tpm",
@@ -100,14 +100,14 @@
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "A tab-delimited GCT file with (Gene ID, Gene Name, TPM) tuples for all genes reported in the gene_reads.gct file, with expression values in transcript per million (TPM) units."
     },{
       "name": "metrics",
       "class": "file",
       "patterns": [
         "*"
       ],
-      "help": ""
+      "help": "A tab-delimited list of (Statistic, Value) pairs of all statistics and metrics recorded."
     },
     {
       "name": "coverage",
@@ -115,7 +115,7 @@
       "patterns": [
         "*"
       ],
-      "help": "",
+      "help": "A tab-delimited list of (Gene ID, Transcript ID, Mean Coverage, Coverage Std, Coverage CV) tuples for all transcripts encountered in the GTF.",
       "optional": true
     },
     {
@@ -124,7 +124,7 @@
       "patterns": [
         "*"
       ],
-      "help": "",
+      "help": "Annotated coverage tsv file using ref_annot.gtf from the CTAT bundle.",
       "optional": true
     }
   ],
