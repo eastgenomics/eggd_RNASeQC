@@ -21,7 +21,7 @@ The app inputs the bam, CTAT bundle and bed file. The CTAT bundle is unpacked an
 
 Without the coverage the outputs are:
 
-- ```{samplename}.exon_csv.tsv```
+- ```{samplename}.exon_cv.tsv```
 - ```{samplename}.exon_reads.gct```
 - ```{samplename}.fragmentSizes.txt```
 - ```{samplename}.gene_fragments.gct```

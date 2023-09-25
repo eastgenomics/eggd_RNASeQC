@@ -58,21 +58,14 @@ main() {
         cd out
         coverage_path=$(find . -type f -name "*.coverage.tsv")
         coverage_file=${coverage_path#./}
-        python3 ../../../hgnc_annotation.py -c $coverage_file -g $ref_annot_gtf
+        python3 /home/dnanexus/hgnc_annotation.py -c $coverage_file -g $ref_annot_gtf
     fi
 
     echo "--------------Outputting files -----------------"
-    mkdir -p /home/dnanexus/out/exon_csv/
-    mkdir -p /home/dnanexus/out/exon_reads/
-    mkdir -p /home/dnanexus/out/fragmentSizes/
-    mkdir -p /home/dnanexus/out/gene_fragments/
-    mkdir -p /home/dnanexus/out/gene_reads/
-    mkdir -p /home/dnanexus/out/gene_tpm/
-    mkdir -p /home/dnanexus/out/metrics/
-
     cd /home/dnanexus/out/
+    mkdir -p exon_cv exon_reads fragmentSizes gene_fragments gene_reads gene_tpm metrics
 
-    mv *exon_csv.tsv /home/dnanexus/out/exon_csv/
+    mv *exon_cv.tsv /home/dnanexus/out/exon_cv/
     mv *exon_reads.gct /home/dnanexus/out/exon_reads/
     mv *fragmentSizes.txt /home/dnanexus/out/fragmentSizes/
     mv *gene_fragments.gct /home/dnanexus/out/gene_fragments/
@@ -83,8 +76,7 @@ main() {
     # If coverage metrics is made, then it needs to be outputted as well
     if [ -f *coverage.tsv ]; then
         echo "coverage.tsv exists."
-        mkdir -p /home/dnanexus/out/coverage/
-        mkdir -p /home/dnanexus/out/coverage_hgnc/
+        mkdir -p coverage coverage_hgnc
 
         mv *coverage.tsv /home/dnanexus/out/coverage/
         mv *coverage.hgnc.tsv /home/dnanexus/out/coverage_hgnc/

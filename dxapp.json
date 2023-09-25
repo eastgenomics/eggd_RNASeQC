@@ -57,7 +57,7 @@
   ],
   "outputSpec": [
     {
-      "name": "exon_csv",
+      "name": "exon_cv",
       "class": "file",
       "patterns": [
         "*"
