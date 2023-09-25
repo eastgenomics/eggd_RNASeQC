@@ -7,21 +7,21 @@ RNA-SeQC ([RNA-SeQC 2: efficient RNA-seq quality control and quantification for 
 ## What inputs are required for this app to run?
 
 - ```bam``` - bam file
-- ```gtf``` - GTF file containing features to check the bam against. This file should be collapsed so there are no overlapping transcripts on the same strand and that each gene have a single transcript whose id matches the parent gene id.
-- ```bed``` - bed file containing chromosome, start and end
-- ```coverage``` - boolean for whether coverage metrics should be calculated or not
-- ```docker``` - Docker input that contains the RNA-SeQC tool
+- ```CTAT bundle``` - A CTAT genome library, which contains the ref_annot.gtf file needed to annotate the genes and transcripts for coverage metrics.
+- ```bed``` - bed file with 6 columns; chrom, start and end, name, score and strand
+- ```docker``` - docker input that contains the RNA-SeQC tool.
+- ```coverage``` - boolean for whether coverage metrics should be calculated or not. Default is true.
 
 
 ## How does this app work?
 
-The app inputs the bam, gtf and bed file and calculates QC metrics using RNA-SeQC.
+The app inputs the bam, CTAT bundle and bed file. The CTAT bundle is unpacked and the ref_annot.gtf is collapsed format (combining all isoforms of a gene into a single transcript) so RNA-SeQC is able to calculate the QC metrics.
 
 ## What does this app output?
 
 Without the coverage the outputs are:
 
-- ```{samplename}.exon_csv.tsv```
+- ```{samplename}.exon_cv.tsv```
 - ```{samplename}.exon_reads.gct```
 - ```{samplename}.fragmentSizes.txt```
 - ```{samplename}.gene_fragments.gct```

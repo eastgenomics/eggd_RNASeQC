@@ -12,8 +12,8 @@ def parse_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '-hgnc', '--hgnc_file',
-        help='HGNC complete static file, tab-separated',
+        '-g', '--gtf_file',
+        help='ref_annot.gtf file from CTAT bundle',
         required=True
         )
 
@@ -34,32 +34,65 @@ def main():
 
     # load coverage data
     dat = pd.read_csv(args.cov_metrics_file, sep = "\t")
-    # remove ensembl gene versions
-    dat['ENSG_id_versionless'] = dat['gene_id'].str.split('.').str[0]
 
     # load hgnc file
-    hgnc_df = pd.read_csv(args.hgnc_file, sep = "\t",dtype='unicode')
-    # make mapping dictionary
-    ensembl_hgncid = dict(zip(hgnc_df.ensembl_gene_id, hgnc_df.hgnc_id))
-    ensembl_hgncsymbol = dict(zip(hgnc_df.ensembl_gene_id, hgnc_df.symbol))
+    ref_flat = pd.read_csv(args.gtf_file,
+                            sep = "\t", skiprows = 5,
+                            header=None,
+                            names = ['chr', 'source', 'feature',
+                                    'start','end', 'score', 'strand',
+                                    'frame','attribute'
+                            ]
+                        )
+    # select the needed columns to save space
+    ref_flat = ref_flat[['chr', 'source', 'feature', 'start','end', 'attribute']]
+    ref_flat = ref_flat[ref_flat['feature'] == "gene"]
+    # the attributes columns has a lot of information about the transcript,
+    # split these by semi colon seperators
+    ref_flat2 = pd.concat(
+        [ref_flat, ref_flat['attribute'].str.split('; ', expand=True)],axis=1
+        ).drop('attribute', axis=1)
+    # attributes has no titles, but we are intersted in columns 5,7,9 which
+    # is the gene ID, hgnc symbol and hgnc ID
+    # +---------------------------------------------------------+----------------------------------------------------------------+
+    # |  chr | source | feature | start | end | 0 | ...  | 3 | 4 | 5 | 6 | 7 | 8 |
+    # +=======================================================================+=======================================================================================+
+    # | chr1 | HAVANA | gene | 11869 | 14409 | gene_id "ENSG00000223972.5" | ... | level 2 | hgnc_id "HGNC:37102" | havana_gene "OTTHUMG00000000961.2" | None | None | None |
+    # +--------------------------------------------------------+-----------------------------------------------------------------+
 
-    # if ensembl gene ids match, copy over hgnc id and symbol to dat dataframe
-    # the match is not based on version but just the ENSG name
-    dat['hgnc_symbol'] = dat['ENSG_id_versionless'].apply(
-                                    lambda x: ensembl_hgncsymbol.get(str(x))
-                                   )
-    dat['hgnc_id'] = dat['ENSG_id_versionless'].apply(
-                                        lambda x: ensembl_hgncid.get(str(x))
-                                    )
+    ref_flat2 = ref_flat2.iloc[:, [5,7,9]]
+    ref_flat2.columns =['gene_id', 'hgnc_symbol', 'HGNC_ID']
+
+    # the elements in these columns have a header "gene_id" for example
+    # in it and we dont want these so we will scrap it and also remove
+    # the qoutes around the element
+    ref_flat2['gene_id'] = ref_flat2['gene_id'].str.extract('"(.*?)"')
+    ref_flat2['hgnc_symbol'] = ref_flat2['hgnc_symbol'].str.extract('"(.*?)"')
+    ref_flat2['HGNC_ID'] = ref_flat2['HGNC_ID'].str.extract('"(.*?)"')
+
+    #remove ws
+    ref_flat2['gene_id'] = ref_flat2['gene_id'].str.strip()
+    ref_flat2['hgnc_symbol'] = ref_flat2['hgnc_symbol'].str.strip()
+    ref_flat2['HGNC_ID'] = ref_flat2['HGNC_ID'].str.strip()
+    # merge the coverage and gtf datatables on on ENSG_ID
+    # the coverage table calls the gene_id, which we will call ENSG_ID later
+    dat_merged = dat.merge(ref_flat2, on = 'gene_id')
+
+    dat_merged.rename(
+    columns = {
+        'gene_id':'ENSG_ID'
+    }, inplace = True
+)
+
+
     # reorder columns
-    dat = dat[['hgnc_symbol', 'hgnc_id', 'ENSG_id_versionless', 'gene_id',
+    dat_merged = dat_merged[['hgnc_symbol', 'HGNC_ID','ENSG_ID',
                 'coverage_mean', 'coverage_std', 'coverage_CV']]
-    dat.rename(columns = {'gene_id':'ENSG_id'}, inplace = True)
 
     # output string name
     output_filename = args.cov_metrics_file.replace('.tsv','.hgnc.tsv')
     # save file
-    dat.to_csv(
+    dat_merged.to_csv(
         output_filename,
         sep="\t", index=False, header=True
         )
