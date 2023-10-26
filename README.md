@@ -33,5 +33,8 @@ With coverage, an additional file are outputted:
 - ```{sample}.coverage.tsv``` : A tab-delimited list of (Gene ID, Transcript ID, Mean Coverage, Coverage Std, Coverage CV) tuples for all transcripts encountered in the GTF.
 - ```{samplename}.coverage.hgnc.tsv``` : Annotated coverage tsv file using ref_annot.gtf from the CTAT bundle.
 
+## What is the limitation of this app
+
+This app works on a collapsed gtf file. This means that all the transcripts are collapsed into one gene. This limits the ability of calculating coverage on a per transcript basis and instead calculated the QC metrics on a per gene basis. This is a limitation of RNASeQC.
 
 ## This app was made by East GLH
