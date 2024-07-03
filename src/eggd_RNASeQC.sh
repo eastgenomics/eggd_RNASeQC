@@ -20,7 +20,7 @@ main() {
     docker load -i "${docker}"
 
     # Get image id from docker image loaded
-    IMAGE_ID=$(sudo docker images --format="{{.Repository}} {{.ID}}" | grep "^gcr" | cut -d' ' -f2)
+    IMAGE_ID=$(sudo docker images --format="{{.Repository}} {{.ID}}" | grep "rnaseq" | cut -d' ' -f2)
 
 
     echo "---------- Decompress CTAT bundle -------------"
@@ -63,12 +63,10 @@ main() {
 
     echo "--------------Outputting files -----------------"
     cd /home/dnanexus/out/
-    mkdir -p exon_cv exon_reads fragmentSizes gene_fragments gene_reads gene_tpm metrics
+    mkdir -p exon_cv exon_reads gene_reads gene_tpm metrics
 
     mv *exon_cv.tsv /home/dnanexus/out/exon_cv/
     mv *exon_reads.gct /home/dnanexus/out/exon_reads/
-    mv *fragmentSizes.txt /home/dnanexus/out/fragmentSizes/
-    mv *gene_fragments.gct /home/dnanexus/out/gene_fragments/
     mv *gene_reads.gct /home/dnanexus/out/gene_reads/
     mv *gene_tpm.gct /home/dnanexus/out/gene_tpm/
     mv *metrics.tsv /home/dnanexus/out/metrics/
@@ -82,6 +80,26 @@ main() {
         mv *coverage.hgnc.tsv /home/dnanexus/out/coverage_hgnc/
     else
         echo "No coverage reports generated as coverage option was not selected"
+    fi
+
+    # If fragmentSizes is made, then it needs to be outputted as well
+    if [ -f *fragmentSizes.txt ]; then
+        echo "fragmentSizes.txt exists."
+        mkdir -p fragmentSizes
+
+        mv *fragmentSizes.txt /home/dnanexus/out/fragmentSizes/
+    else
+        echo "No fragmentSizes generated"
+    fi
+
+    # If gene_fragments is made, then it needs to be outputted as well  
+    if [ -f *gene_fragments.gct ]; then
+        echo "gene_fragments.gct exists."
+        mkdir -p gene_fragments
+
+        mv *gene_fragments.gct /home/dnanexus/out/gene_fragments/
+    else
+        echo "No gene_fragments generated"
     fi
 
     dx-upload-all-outputs
