@@ -77,7 +77,8 @@
       "patterns": [
         "*"
       ],
-      "help": "A list of fragment sizes recorded."
+      "help": "A list of fragment sizes recorded.",
+      "optional": true
     },
     {
       "name": "gene_fragments",
@@ -85,8 +86,10 @@
       "patterns": [
         "*"
       ],
-      "help": "Number of fragment sizes per gene."
-    },{
+      "help": "Number of fragment sizes per gene.",
+      "optional": true
+    },
+    {
       "name": "gene_reads",
       "class": "file",
       "patterns": [
