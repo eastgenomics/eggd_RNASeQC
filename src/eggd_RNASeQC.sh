@@ -84,6 +84,26 @@ main() {
         echo "No coverage reports generated as coverage option was not selected"
     fi
 
+    # If fragmentSizes is made, then it needs to be outputted as well
+    if [ -f *fragmentSizes.txt ]; then
+        echo "fragmentSizes.txt exists."
+        mkdir -p fragmentSizes
+
+        mv *fragmentSizes.txt /home/dnanexus/out/fragmentSizes/
+    else
+        echo "No fragmentSizes generated"
+    fi
+
+    # If gene_fragments is made, then it needs to be outputted as well  
+    if [ -f *gene_fragments.gct ]; then
+        echo "gene_fragments.gct exists."
+        mkdir -p gene_fragments
+
+        mv *gene_fragments.gct /home/dnanexus/out/gene_fragments/
+    else
+        echo "No gene_fragments generated"
+    fi
+
     dx-upload-all-outputs
 
 }
