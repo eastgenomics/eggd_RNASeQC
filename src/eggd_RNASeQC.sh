@@ -63,12 +63,10 @@ main() {
 
     echo "--------------Outputting files -----------------"
     cd /home/dnanexus/out/
-    mkdir -p exon_cv exon_reads fragmentSizes gene_fragments gene_reads gene_tpm metrics
+    mkdir -p exon_cv exon_reads gene_reads gene_tpm metrics
 
     mv *exon_cv.tsv /home/dnanexus/out/exon_cv/
     mv *exon_reads.gct /home/dnanexus/out/exon_reads/
-    mv *fragmentSizes.txt /home/dnanexus/out/fragmentSizes/
-    mv *gene_fragments.gct /home/dnanexus/out/gene_fragments/
     mv *gene_reads.gct /home/dnanexus/out/gene_reads/
     mv *gene_tpm.gct /home/dnanexus/out/gene_tpm/
     mv *metrics.tsv /home/dnanexus/out/metrics/
