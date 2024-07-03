@@ -20,7 +20,7 @@ main() {
     docker load -i "${docker}"
 
     # Get image id from docker image loaded
-    IMAGE_ID=$(sudo docker images --format="{{.Repository}} {{.ID}}" | grep "^gcr" | cut -d' ' -f2)
+    IMAGE_ID=$(sudo docker images --format="{{.Repository}} {{.ID}}" | grep "rnaseq" | cut -d' ' -f2)
 
 
     echo "---------- Decompress CTAT bundle -------------"
